@@ -26,6 +26,7 @@
 #include "platform_config.h"
 #include "stm32_eval.h"
 #include "symtab.h"
+#include "printf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -135,6 +136,8 @@ void MemManage_Handler(void)
 		link_reg_addr = symbols[i].load_time_address;
 
 	}
+	//printf("\r\nValue of PC : 0x%x\r\n", link_reg_addr);
+
 	      asm(
 	"TST LR, #4;"
 	"ITE EQ;"
@@ -146,6 +149,7 @@ void MemManage_Handler(void)
 	asm("mov %0, r0" : "=r"(stack_pointer));			
 		stack_pointer[13] = link_reg_addr;
 		stack_pointer[16] = link_reg_addr;
+	
 	return;	
 
 }

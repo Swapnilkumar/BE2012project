@@ -54,7 +54,14 @@ void init()
   char data_buffer[80]="\r\nResetted Successfully.... \r\n\r\n";
   char data_buffer1[80]="*****************************************\r\n\r\n";
 
+	uint32_t *CCR,*SHCSR;
+        CCR = (uint32_t *)0xE000ED14;
+        *CCR = 0x210;
+        SHCSR = (uint32_t *)0xE000ED24;
+        *SHCSR=0x50000;
+	
 	ibreak=1;
+	
 	while(ibreak)  
 	{
 		//printf(" %s ", data_buffer1);
@@ -64,6 +71,7 @@ void init()
 		//if(strstr(data_buffer1, "start"))
 		//	ibreak=0;
 	}
+
 
 	printf("On Demand Loading Of Code and Data of size constrained RAM in embedded system by Binary Re-writing: ");
 	USB_OTG_BSP_uDelay(1000000);
@@ -78,19 +86,19 @@ void init()
 extern int sum();
 extern int sub();
 
-int a;
+int val; 
 int main(void)
 {
-
+	val = 0;
 	init();
-	a = sum();
-	a = sub();
-	a = sum();
+	val = sum();
+	val = sub();
+	val = sum();
 
-  	while (1)
-  	{
-		printf("\r\n\r\n Value Of a is :  %d",a);
-  	}
+  	//while (1)
+  	//{
+		printf("\r\n\r\n Value Of val is :  %d", val);
+  	//}
 }
 
 #ifdef USE_FULL_ASSERT

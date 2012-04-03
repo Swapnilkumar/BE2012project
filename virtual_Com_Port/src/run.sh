@@ -1,6 +1,12 @@
 #!bin/bash
 
-arm-none-eabi-gcc -nostartfiles -nostdlib -mthumb -mcpu=cortex-m3 -g  -I../inc -c  
+make -f swa_Makefile
+make -f swa_Makefile attachsymtab
+make -f swa_Makefile 
+make -f swa_Makefile attachsymtab
+make -f swa_Makefile
+
+#arm-none-eabi-gcc -nostartfiles -nostdlib -mthumb -mcpu=cortex-m3 -g  -I../inc -c  
 
 
 #arm-none-eabi-gcc -nostartfiles -nostdlib -mthumb -mcpu=cortex-m3 -g -c printf.c hw_config.c  misc.c  otgd_fs_dev.c  otgd_fs_pcd.c  stm32_eval.c  stm32f10x_bkp.c  stm32f10x_cec.c  stm32f10x_dac.c  stm32f10x_dma.c     stm32f10x_flash.c  stm32f10x_gpio.c  stm32f10x_it.c   stm32f10x_pwr.c   stm32f10x_rtc.c  stm32f10x_spi.c   stm32f10x_usart.c  usb_desc.c  usb_init.c  usb_istr.c  usb_prop.c  usb_regs.c core_cm3.c   main.c  otgd_fs_cal.c  otgd_fs_int.c  stm32f10x_adc.c  stm32f10x_can.c  stm32f10x_crc.c  stm32f10x_dbgmcu.c  stm32f10x_exti.c   stm32f10x_fsmc.c  stm32f10x_i2c.c  stm32f10x_iwdg.c  stm32f10x_rcc.c  stm32f10x_sdio.c  stm32f10x_tim.c    stm32f10x_wwdg.c  system_stm32f10x.c  usb_core.c  usb_endp.c usb_mem.c   usb_pwr.c   usb_sil.c startup_stm32f10x_cl.c -I../inc
@@ -11,9 +17,8 @@ arm-none-eabi-gcc -nostartfiles -nostdlib -mthumb -mcpu=cortex-m3 -g  -I../inc -
 
 #arm-none-eabi-objdump -D -S main.elf > main.list
 
-gnome-terminal --geometry=165x40+100+200 --tab -e "
+#gnome-terminal --geometry=165x40+100+200 --tab -e "
 
-#sudo openocd -f /root/CodeSourcery/openocd-0.5.0/tcl/interface/ -f /root/CodeSourcery/openocd-0.5.0/tcl/board/olimex_stm32_h107.cfg
-
+#sudo openocd -f /home/swapnil/CodeSourcery/openocd-0.5.0/tcl/interface/olimex-arm-usb-tiny-h.cfg -f /home/swapnil/CodeSourcery/openocd-0.5.0/tcl/board/olimex_stm32_h107.cfg
 #" --tab -e "sudo telnet localhost 4444" --tab -e "arm-none-eabi-gdbtui main.elf"  
 

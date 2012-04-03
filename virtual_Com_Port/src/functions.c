@@ -1,15 +1,33 @@
-//__attribute__((section(".sum")))
 
-extern int a;
-int sum()
+#include "printf.h"
+static int a;
+
+__attribute__((section(".xnfunction")))
+volatile int sum()
 {
-
-	return a+2;
+	unsigned *program_counter, pc;
+	asm(
+	"MOV R0, PC;"
+	"MOV R0, PC;"
+	);	
+	asm("mov %0, r0" : "=r"(program_counter));
+	pc = program_counter;
+	printf("\r\n\r\nSUM FUNCTION called PC : 0x%x", pc);
+	return 2;
 
 }
 
+__attribute__((section(".xnfunction")))
 int sub()
 {
-	return a-1;
+	unsigned *program_counter, pc;
+	asm(
+	"MOV R0, PC;"
+	"MOV R0, PC;"
+	);	
+	asm("mov %0, r0" : "=r"(program_counter));
+	pc = program_counter;
+	printf("\r\n\r\nSUB FUNCTION called PC : 0x%x", pc);
+	return 1;
 }
 

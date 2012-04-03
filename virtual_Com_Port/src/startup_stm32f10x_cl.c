@@ -311,6 +311,7 @@ void OTG_FS_IRQHandler(void);
  * @retval : None
  */
 int i;
+//__attribute__ ((section("Reset_Handler")))
 void Reset_Handler(void) {
 	//i=1;
 	//while(i);
