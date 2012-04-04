@@ -45,6 +45,7 @@ typedef struct symtab\n	 \
 	uint32_t fun_size;\n	\
 	int load_time_address;\n\
 	int presentbit;\n\
+	int usedbit;\n\
 }symtab;\n\
 \n	\
 ");
@@ -78,11 +79,11 @@ typedef struct symtab\n	 \
 	}
 
 	fprintf( fileout, "__attribute__((section(\".symtab\")))  symtab symbols[%d]= {", i+2 );
-	fprintf(fileout, "{0x%x, %d, 0, 0} ", symbols[0].value, symbols[0].size);
+	fprintf(fileout, "{0x%x, %d, 0, 0, 0} ", symbols[0].value, symbols[0].size);
 
 	for(j=1; j < i; j++)
 	{
-		fprintf(fileout, ",\n{0x%x, %d, 0, 0} ", symbols[j].value, symbols[j].size);		
+		fprintf(fileout, ",\n{0x%x, %d, 0, 0, 0} ", symbols[j].value, symbols[j].size);		
 
 	}
 

@@ -1,3 +1,4 @@
+
 /* default stack sizes. */
 
 __Stack_Size = 1024 ;
@@ -19,9 +20,8 @@ _Minimum_Stack_Size = 0x100 ;
 
 MEMORY
 {
-  	RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
-	FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
-	xn (rwx) : ORIGIN = 0xC0000000, LENGTH = 512K
+  RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
+  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
 }
 
 /* higher address of the user mode stack */
@@ -43,19 +43,22 @@ SECTIONS
 	. = ALIGN(4);
     } >FLASH
  
-   
+  
+    .flashtext :
+    {
+	. = ALIGN(4);
+        *(.flashtext)            /* Startup code */
+	. = ALIGN(4);
+    } >FLASH
+ 
+    
     /* the program code is stored in the .text section, which goes to Flash */
     .text :
     {
 	    . = ALIGN(4);
-	*(.handlerfunctions)	   
-<<<<<<< HEAD
-	*(Reset_Handler*) 
-=======
-	*(.Reset_Handler*) 
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
-         *(.text)                    /* remaining code */
-         *(.text.*)                    /* remaining code */
+	    
+        *(.text)                   /* remaining code */
+        *(.text.*)                   /* remaining code */
         *(.rodata)                 /* read-only data (constants) */
         *(.rodata*)
         *(.glue_7)
@@ -67,17 +70,8 @@ SECTIONS
    	 _sidata = _etext;
     } >FLASH
     
-    .xntext : AT(_etext) {
-<<<<<<< HEAD
-		*(.xnfunction*)		
-	
-=======
-	/*	*(.text*) */
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
-    } > xn
  
 
-	_sidata = _etext + SIZEOF(.xntext);
     /* This is the initialized data section
     The program executes knowing that the data is in the RAM
     but the loader puts the initial values in the FLASH (inidata).
@@ -90,11 +84,7 @@ SECTIONS
         
         *(.data)
         *(.data.*)
-<<<<<<< HEAD
-	*(.symtab);
-=======
-	*(.symtab)
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
+
 	    . = ALIGN(4);
 	    /* This is used by the startup in order to initialize the .data secion */
    	 _edata = . ;

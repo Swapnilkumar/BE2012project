@@ -49,10 +49,10 @@ int ibreak;
 
 void init()
 {
-  char data_buffer2[80]="\r\nSwapnilkumar Khorate \r\n\r\n";
+  	char data_buffer2[80]="\r\nSwapnilkumar Khorate \r\n\r\n";
   
-  char data_buffer[80]="\r\nResetted Successfully.... \r\n\r\n";
-  char data_buffer1[80]="*****************************************\r\n\r\n";
+	char data_buffer[80]="\r\nSuccessfully.... \r\n\r\n";
+	char data_buffer1[80]="*****************************************\r\n\r\n";
 
 	uint32_t *CCR,*SHCSR;
         CCR = (uint32_t *)0xE000ED14;
@@ -65,7 +65,6 @@ void init()
 	while(ibreak)  
 	{
 		//printf(" %s ", data_buffer1);
-		//ibreak++;
 		//USB_SIL_Read(EP3_OUT, data_buffer1);
 		
 		//if(strstr(data_buffer1, "start"))
@@ -73,44 +72,46 @@ void init()
 	}
 
 
-	printf("On Demand Loading Of Code and Data of size constrained RAM in embedded system by Binary Re-writing: ");
+	printf("On Demand Loading Of Code size constrained RAM in MMU-less embedded system  ");
 	USB_OTG_BSP_uDelay(1000000);
   
-		//printf("");
 		
 
 	
-		printf("This is me : %s", data_buffer2);
+	printf("Virtual Com Port Started  : %s", data_buffer);
 }
 
-extern int sum();
-extern int sub();
+extern int increment();
+extern int decrement();
+extern unsigned *program_counter;
 
 int val; 
 int main(void)
 {
 	val = 0;
 	init();
-<<<<<<< HEAD
-	val = sum();
-	val = sub();
-	val = sum();
 
+	printf("\r\n\r\n Value Of val is :  0x%x", val);
+
+	val = increment(val);
+	printf("\r\n\r\n Value Of val is :  0x%x", val);
+
+	val = decrement(val);
+	printf("\r\n\r\n Value Of val is :  0x%x", val);
+
+	val = increment(val);
   	//while (1)
   	//{
-		printf("\r\n\r\n Value Of val is :  %d", val);
-  	//}
-=======
-	a =0;
-	a = sum();
-	a = sub();
-	a = sum();
+	  	//}
+	printf("\r\n\r\n Value Of val is :  0x%x", val);
 
-  	while (1)
-  	{
-		printf("\r\n\r\n Value Of a is :  %d",a);
-  	}
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
+	val = addition(2 + 3);
+  	//while (1)
+  	//{
+	  	//}
+	printf("\r\n\r\n Value Of val is :  0x%x", val);
+
+
 }
 
 #ifdef USE_FULL_ASSERT

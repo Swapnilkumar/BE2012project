@@ -310,42 +310,28 @@ void OTG_FS_IRQHandler(void);
  * @param  None
  * @retval : None
  */
-int i;
-<<<<<<< HEAD
+int ibrk;
 //__attribute__ ((section("Reset_Handler")))
-=======
-__attribute__ ((section(".Reset_Handler")))
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
 void Reset_Handler(void) {
-	i=1;
-	while(i);
-
-	/* Enable fault handlers */
-	volatile uint32_t *CCR,*SHCSR;
-	CCR = (uint32_t *)0xE000ED14;
-	*CCR = 0x210;
-	SHCSR = (uint32_t *)0xE000ED24;
-	*SHCSR=0x50000;
-	
-	asm("MSR msp, %0" : : "r"(&_estack));
+	//i=1;
+	//while(i);
 
 #ifdef STARTUP_DELAY
 	volatile unsigned long i;
 	for (i=0;i<500000;i++) { ; }
 #endif
-	
+
 	/* Initialize data and bss */
 	__Init_Data();
 
-	/* Call CTORS of static objects */
-				/// not needed for "pure C":
-	//__libc_init_array();
 	/* Call the application's entry point.*/
 	SystemInit();
 	virtual_com_port_init();
-	main();
-
-	while(1) { ; }
+	
+		main();
+	
+		while(1) { ; }
+	
 }
 
 /**
@@ -353,7 +339,7 @@ void Reset_Handler(void) {
  * @param  None
  * @retval : None
  */
-__attribute__ ((section(".Reset_Handler")))
+
 void __Init_Data(void) {
 	unsigned long *pulSrc, *pulDest;
 
@@ -384,17 +370,16 @@ void __Init_Data(void) {
 * Return         : None
 *******************************************************************************/
 #define SET_LINE_CODING             0x20
-__attribute__ ((section(".handlerfunctions")))
 void virtual_com_port_init()
 {
 //  char data_buffer1[80]="*****************************************\r\n\r\n";
-  	Set_System();
-  	Set_USBClock();
-	USB_Interrupts_Config();
-  	USB_Init();
+  Set_System();
+  Set_USBClock();
+  USB_Interrupts_Config();
+  USB_Init();
 
 
-	Virtual_Com_Port_Data_Setup(SET_LINE_CODING);
+Virtual_Com_Port_Data_Setup(SET_LINE_CODING);
 
 /*
 Initialize the USART to default values
@@ -518,19 +503,32 @@ Send the data received by the USB through USART
  * @param  None
  * @retval : None
  */
-__attribute__ ((section(".handlerfunctions")))
+
 void Default_Handler(void) {
 	/* Go into an infinite loop. */
+	while (1)  {
+	  asm volatile ("nop");
+  }
+	asm volatile ("nop");
+	asm volatile ("nop");
+	asm volatile ("nop");
 }
-__attribute__ ((section(".handlerfunctions")))
+
 void NMI_Handler(void) {
 	/* Go into an infinite loop. */
+	while (1)  {
+	  asm volatile ("nop");
+  }
 
+	asm volatile ("nop");
 }
-__attribute__ ((section(".handlerfunctions")))
 void HardFault_Handler(void){
 	/* Go into an infinite loop. */
+	while (1)  {
+	  asm volatile ("nop");
+  }
 
+	asm volatile ("nop");
 }
 
 

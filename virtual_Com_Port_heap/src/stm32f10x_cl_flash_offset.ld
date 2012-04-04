@@ -49,31 +49,25 @@ SECTIONS
     {
 	    . = ALIGN(4);
 	*(.handlerfunctions)	   
-<<<<<<< HEAD
 	*(Reset_Handler*) 
-=======
-	*(.Reset_Handler*) 
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
          *(.text)                    /* remaining code */
          *(.text.*)                    /* remaining code */
         *(.rodata)                 /* read-only data (constants) */
         *(.rodata*)
         *(.glue_7)
         *(.glue_7t)
-
+/*	*(.xnfunction)*/
 	    . = ALIGN(4);
-   	 _etext = .;
+   	 _etext = . ;
 	    /* This is used by the startup in order to initialize the .data secion */
    	 _sidata = _etext;
     } >FLASH
     
     .xntext : AT(_etext) {
-<<<<<<< HEAD
+		*(.dummyfunction*)	
 		*(.xnfunction*)		
 	
-=======
-	/*	*(.text*) */
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
+	_exn = . ; 	
     } > xn
  
 
@@ -90,11 +84,7 @@ SECTIONS
         
         *(.data)
         *(.data.*)
-<<<<<<< HEAD
 	*(.symtab);
-=======
-	*(.symtab)
->>>>>>> fd9b2f8d3dee4a198fa5bbdc7fed615f53bc80b6
 	    . = ALIGN(4);
 	    /* This is used by the startup in order to initialize the .data secion */
    	 _edata = . ;
