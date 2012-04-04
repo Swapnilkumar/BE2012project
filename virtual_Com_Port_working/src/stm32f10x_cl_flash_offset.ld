@@ -25,7 +25,7 @@ MEMORY
 }
 
 /* higher address of the user mode stack */
-_estack = 0x20004050;
+_estack = 0x20004040;
 
 
 
